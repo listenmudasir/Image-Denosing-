@@ -17,7 +17,7 @@ The goal is to improve **texture preservation** and **reduce halo/ringing artifa
 
 ## 📷 Denoising Performance Example
 
-Below is a qualitative comparison between the baseline SCUNet and our SCUNetWithFAA on a UDC-like noisy face image.
+Below is a qualitative comparison between the baseline SCUNet and our SCUNetWithFAA on a UDC-like noisy face image..
 
 <p align="center">
   <img src="docs/figures/Figure_1s.png" width="800" alt="Denoising Performance Comparison">
