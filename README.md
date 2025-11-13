@@ -1,24 +1,55 @@
-# SCUNet with Frequency-Aware Attention (FAA)
+# SCUNetWithFAA: Frequency-Aware Attention for Image Restoration
 
-Official PyTorch implementation of **SCUNetWithFAA**, an extension of SCUNet that injects a lightweight **frequency-aware attention (FAA)** module into the bottleneck to enhance texture preservation and reduce haloing/ringing artifacts.
+This repository provides an **unofficial PyTorch implementation** of **SCUNet** and our extension **SCUNetWithFAA**, which integrates a lightweight **Frequency-Aware Attention (FAA)** module into the bottleneck stage.
 
-> TL;DR: We keep the strong Swin-style SCUNet backbone, and add a tiny FFT-based attention gate in the bottleneck to let the network "look" at frequency content before decoding, giving sharper details and fewer artifacts.
-
----
-
-## 🔧 Features
-
-- 🧱 **Backbone:** Original SCUNet architecture with Swin-inspired ConvTrans blocks.   
-- 🎚 **Frequency-Aware Attention (FAA):** FFT-based channel attention module applied in the bottleneck, using `rFFT2` magnitude as a global frequency descriptor.   
-- 🧮 **Stable mixed precision:** FAA always computes in `float32` internally to avoid numerical issues with AMP.
-- 🧪 Easy to plug into other models: FAA is implemented as a standalone `nn.Module`.
-- 📊 Evaluation helpers for PSNR/SSIM and visual comparison.
+The goal is to improve **texture preservation** and **reduce halo/ringing artifacts** for tasks such as image denoising and under-display camera (UDC) restoration.
 
 ---
 
-## 🏗 Architecture Overview
+## 🔍 Overview
 
-The code provides two main models:
+- 🧱 **Backbone:** SCUNet-style encoder–decoder with ConvTrans/Swin-like blocks.
+- 🎚 **FAA module:** Uses 2D FFT magnitude as a global frequency descriptor and applies channel-wise attention in the bottleneck.
+- 🧮 **PyTorch implementation:** Clean, research-friendly code for easy modification and reproduction.
+- 📊 **Evaluation helpers:** PSNR/SSIM and qualitative visualizations.
 
-- `SCUNet` (baseline): defined in `models/network_scunet.py`
-- `SCUNetWithFAA`:
+---
+
+## 📷 Denoising Performance Example
+
+Below is a qualitative comparison between the baseline SCUNet and our SCUNetWithFAA on a UDC-like noisy face image.
+
+<p align="center">
+  <img src="docs/figures/denoising_comparison.png" width="800" alt="Denoising Performance Comparison">
+</p>
+
+- **Baseline SCUNet**: PSNR = 20.41 dB, SSIM = 0.7260  
+- **SCUNetWithFAA**: PSNR = 21.73 dB, SSIM = 0.7637  
+
+Our FAA module sharpens facial details and reduces the circular flare around the face, while improving both PSNR and SSIM.
+
+---
+
+## 🏗 Architecture
+
+We provide two main models:
+
+- `SCUNet` (baseline) – defined in `scunet_faa/models/network_scunet.py`
+- `SCUNetWithFAA` – defined in `scunet_faa/models/network_scunet_faa.py`
+
+`SCUNetWithFAA` keeps the same encoder–decoder as SCUNet, but applies a **FrequencyAwareAttention** block to the bottleneck features before passing them to the decoder.
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/<your-username>/scunet-faa.git
+cd scunet-faa
+
+# Option 1: pip
+pip install -r requirements.txt
+
+# Option 2: conda
+conda env create -f environment.yml
+conda activate scunet-faa
