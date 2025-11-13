@@ -20,7 +20,7 @@ The goal is to improve **texture preservation** and **reduce halo/ringing artifa
 Below is a qualitative comparison between the baseline SCUNet and our SCUNetWithFAA on a UDC-like noisy face image.
 
 <p align="center">
-  <img src="docs/figures/denoising_comparison.png" width="800" alt="Denoising Performance Comparison">
+  <img src="docs/figures/Figure_1s.png" width="800" alt="Denoising Performance Comparison">
 </p>
 
 - **Baseline SCUNet**: PSNR = 20.41 dB, SSIM = 0.7260  
